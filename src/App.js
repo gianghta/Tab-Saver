@@ -1,3 +1,4 @@
+/*global chrome*/
 import React, { Component } from 'react';
 
 import AddBtn from './components/AddBtn';
@@ -13,12 +14,10 @@ class App extends Component {
     this.state = {
       links: []
     };
-
-    this.onAddLinkToUI = this.onAddLinkToUI.bind(this);
   }
 
-  onAddLinkToUI() {
-    chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
+  onAddLinkToUI = () => {
+    chrome.tabs.query({'active': true, 'currentWindow': true}, (tabs) => {
       const tab = tabs[0];
 
       const link = {
@@ -27,11 +26,10 @@ class App extends Component {
         icon: tab.favIconUrl
       }
 
-      this.setState(state => {
-        const links = state.links.concat(link);
-        return {
-          links
-        }
+      const newLinks = [...this.state.links, link];
+
+      this.setState({
+        links: newLinks,
       });
 
       console.log('Successfully add link');
