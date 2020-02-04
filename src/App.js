@@ -1,4 +1,3 @@
-/*global chrome*/
 import React, { Component } from 'react';
 
 import AddBtn from './components/AddBtn';
@@ -12,15 +11,28 @@ class App extends Component {
     super(props);
 
     this.state = {
-      
+      links: []
     };
+
+    this.onAddLinkToUI = this.onAddLinkToUI.bind(this);
   }
 
-  addLinkToUI() {
+  onAddLinkToUI() {
     chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
       const tab = tabs[0];
 
-      this.setState({});
+      const link = {
+        url: tab.url,
+        title: tab.title,
+        icon: tab.favIconUrl
+      }
+
+      this.setState(state => {
+        const links = state.links.concat(link);
+        return {
+          links
+        }
+      });
 
       console.log('Successfully add link');
     });
@@ -29,18 +41,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        <main role="main" class="container">
+        <main role="main" className="container">
           <div className="row">
             <div className="col-12">
               <h3 className="m-2">Tab Saver</h3>
-              <AddBtn />
+              <AddBtn addItem={this.onAddLinkToUI}/>
               <SearchBar />
 
               <ul className="list-group list-group-flush">
-                <ListItem />
-                <ListItem />
-                <ListItem />
-                <ListItem />
+                {this.state.links.map(item => (
+                  <ListItem url={item.url} title={item.title} icon={item.icon} />
+                ))}
               </ul>
             </div>
           </div>
