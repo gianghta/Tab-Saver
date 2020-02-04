@@ -1,7 +1,31 @@
+/*global chrome*/
 import React, { Component } from 'react';
+
+import AddBtn from './components/AddBtn';
+import SearchBar from './components/SearchBar';
+import ListItem from './components/ListItem';
+import Footer from './components/Footer';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      
+    };
+  }
+
+  addLinkToUI() {
+    chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
+      const tab = tabs[0];
+
+      this.setState({});
+
+      console.log('Successfully add link');
+    });
+  }
+
   render() {
     return (
       <div>
@@ -9,64 +33,18 @@ class App extends Component {
           <div className="row">
             <div className="col-12">
               <h3 className="m-2">Tab Saver</h3>
-              <button type="button" className="btn btn-primary btn-lg m-2 mb-3">Add</button>
-
-              <form className="m-2">
-                <div className="form-group">
-                  <input type="search" className="form-control" id="search-link" aria-describedby="emailHelp" placeholder="Search..." />
-                  <small id="searchHelp" className="form-text text-muted">Type in link to search</small>
-                </div>
-              </form>
+              <AddBtn />
+              <SearchBar />
 
               <ul className="list-group list-group-flush">
-                <a href="/#" className="list-group-item list-group-item-action d-flex flex-row align-items-center">
-                  <i className="m-2 far fa-bell fa-lg"></i>
-                  <div className="m-2 flex-column">
-                    <div>Test 1</div>
-                    <div className="badge badge-info badge-pill">Test annotation</div>
-                  </div>
-                  <div className="ml-auto">
-                    <i className="far fa-trash-alt fa-lg"></i>
-                  </div>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action d-flex flex-row align-items-center">
-                  <i className="m-2 far fa-bell fa-lg"></i>
-                  <div className="m-2 flex-column">
-                    <div>Test 1</div>
-                    <div className="badge badge-info badge-pill">Test annotation</div>
-                  </div>
-                  <div className="ml-auto">
-                    <i className="far fa-trash-alt fa-lg"></i>
-                  </div>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action d-flex flex-row align-items-center">
-                  <i className="m-2 far fa-bell fa-lg"></i>
-                  <div className="m-2 flex-column">
-                    <div>Test 1</div>
-                    <div className="badge badge-info badge-pill">Test annotation</div>
-                  </div>
-                  <div className="ml-auto">
-                    <i className="far fa-trash-alt fa-lg"></i>
-                  </div>
-                </a>
-                <a href="/#" className="list-group-item list-group-item-action d-flex flex-row align-items-center">
-                  <i className="m-2 far fa-bell fa-lg"></i>
-                  <div className="m-2 flex-column">
-                    <div>Test 1</div>
-                    <div className="badge badge-info badge-pill">Test annotation</div>
-                  </div>
-                  <div className="ml-auto">
-                    <i className="far fa-trash-alt fa-lg"></i>
-                  </div>
-                </a>
+                <ListItem />
+                <ListItem />
+                <ListItem />
+                <ListItem />
               </ul>
             </div>
           </div>
-          <footer id="sticky-footer" class="footer py-4">
-            <div class="container text-center">
-              <small>Copyright &copy; Your Website</small>
-            </div>
-          </footer>
+          <Footer />
         </main>
       </div>
     );

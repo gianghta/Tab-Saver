@@ -2,10 +2,25 @@
   "short_name": "Tab Saver",
   "name": "Tab Saving Chrome extension",
   "manifest_version": 2,
+  "description":
+    "Save tabs and allow user to access those later on when they want to visit again with bookmarking it",
+  "author": "Giang Ta",
   "browser_action": {
     "default_popup": "index.html",
     "default_title": "Tab Saver"
   },
+  "background": {
+    "script": ["background.js"],
+    "persistent": false
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "http://*/*",
+    "https://*/*",
+    "storage"
+  ],
+  "minimum_chrome_version": "60",
   "version": "1.0",
   "content_security_policy": "script-src 'self' 'sha256-jg9oq1+RBc4IsoMRATnbYW/d7cD20Ul02JX3UJHl19U='; object-src 'self'"
 }
