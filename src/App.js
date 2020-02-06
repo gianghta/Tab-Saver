@@ -26,13 +26,17 @@ class App extends Component {
         icon: tab.favIconUrl
       }
 
-      const newLinks = [...this.state.links, link];
+      if (!this.state.links.some(currLink => currLink.title === link.title)) {
+        const newLinks = [...this.state.links, link];
 
-      this.setState({
-        links: newLinks,
-      });
+        this.setState({
+          links: newLinks,
+        });
 
-      console.log('Successfully add link');
+        console.log('Successfully add link');
+      } else {
+        alert('Link is already in the list');
+      }
     });
   }
 
