@@ -16,6 +16,22 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    chrome.storage.sync.get(['linksList'], result => {
+      console.log(result.linksList);
+
+      if ('linksList' in result) {
+        this.setState({ links: result.linksList });
+      }
+    })
+  }
+
+  setLinksList = (list) => {
+    chrome.storage.sync.set({ linksList: list }, () => {
+      chrome.storage.sync.get(['linksList'], result => console.log(`List ${list} is set`));
+    });
+  }
+
   onAddLinkToUI = () => {
     chrome.tabs.query({'active': true, 'currentWindow': true}, (tabs) => {
       const tab = tabs[0];
@@ -33,11 +49,19 @@ class App extends Component {
           links: newLinks,
         });
 
+        this.setLinksList(this.state.links);
+
         console.log('Successfully add link');
       } else {
         alert('Link is already in the list');
       }
     });
+  }
+
+  onDeleteLink = title => {
+    this.setState(prevState => ({
+      links: prevState.links.filter(el => el.title !== title)
+    }));
   }
 
   render() {
@@ -51,9 +75,9 @@ class App extends Component {
               <SearchBar />
 
               <ul className="list-group list-group-flush">
-                {this.state.links.map(item => (
-                  <ListItem url={item.url} title={item.title} icon={item.icon} />
-                ))}
+                {!(this.state.links === undefined || this.state.links.length === 0) ? this.state.links.map(item => (
+                  <ListItem url={item.url} title={item.title} icon={item.icon} deleteItem={this.onDeleteLink}/>
+                )) : <li>List is empty</li>}
               </ul>
             </div>
           </div>

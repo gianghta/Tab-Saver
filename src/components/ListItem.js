@@ -1,7 +1,7 @@
 import React from 'react';
 import DeleteBtn from './DeleteBtn';
 
-const ListItem = ({ url, title, icon }) => {
+const ListItem = ({ url, title, icon, deleteItem }) => {
     return (
         <a href={ url } className="list-group-item list-group-item-action d-flex flex-row align-items-center">
             <img className="icon" src={ icon } alt="website icon" />
@@ -9,7 +9,7 @@ const ListItem = ({ url, title, icon }) => {
                 <div>{ title }</div>
                 <div className="badge badge-info badge-pill">Test annotation</div>
             </div>
-            <DeleteBtn />
+            <DeleteBtn del={deleteItem} linkTitle={title}/>
         </a>
     );
 };
