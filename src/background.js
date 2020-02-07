@@ -1,3 +1,5 @@
+// This script is here for future use if needed.
+
 // chrome.runtime.onInstalled.addListener(() => {
 //     console.log('onInstalled...');
 //     // create alarm after extension is installed / upgraded
@@ -15,21 +17,21 @@
 
 /*global chrome*/
 
-const defaultList = [];
+// const defaultList = [];
 
-export const setLinksList = (list) => {
-    chrome.storage.sync.get({ linksList: defaultList }, result => {
-        if (result === undefined) {
-            console.log('List is empty');
-        }
-        chrome.storage.sync.set({ linksList: list }, () => {
-            console.log(`List ${list} is added`);
-        });
-    });
-}
+// export const setLinksList = (list) => {
+//     chrome.storage.sync.get({ linksList: defaultList }, result => {
+//         if (result === undefined) {
+//             console.log('List is empty');
+//         }
+//         chrome.storage.sync.set({ linksList: list }, () => {
+//             console.log(`List ${list} is added`);
+//         });
+//     });
+// }
 
-export const getLinksList = (callback) => {
-    chrome.storage.sync.get({ linksList: defaultList }, result => {
-        callback(result);
-    });
-}
+// export const getLinksList = (callback) => {
+//     chrome.storage.sync.get({ linksList: defaultList }, result => {
+//         callback(result);
+//     });
+// }

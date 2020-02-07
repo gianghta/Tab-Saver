@@ -19,13 +19,10 @@
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
     background-color: #f5f5f5;
 }
 
-#sticky-footer {
-    flex-shrink: none;
+.git-link {
+    color:inherit;
+    text-decoration: none;
 }

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import AddBtn from './components/AddBtn';
 import SearchBar from './components/SearchBar';
 import ListItem from './components/ListItem';
+import Alert from './components/Alert';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -28,9 +29,10 @@ class App extends Component {
 
   setLinksList = (list) => {
     chrome.storage.sync.set({ linksList: list }, () => {
-      chrome.storage.sync.get(['linksList'], result => console.log(`List ${list} is set`));
+      chrome.storage.sync.get(['linksList'], () => console.log(`List is set`));
     });
   }
+  
 
   onAddLinkToUI = () => {
     chrome.tabs.query({'active': true, 'currentWindow': true}, (tabs) => {
@@ -59,9 +61,15 @@ class App extends Component {
   }
 
   onDeleteLink = title => {
-    this.setState(prevState => ({
-      links: prevState.links.filter(el => el.title !== title)
-    }));
+    const newList = this.state.links.filter(el => el.title !== title);
+    this.setState({
+      links: newList
+    });
+    this.setLinksList(newList);
+  }
+
+  onLinkClicked = url => {
+    chrome.tabs.create({ url: url });
   }
 
   render() {
@@ -76,8 +84,14 @@ class App extends Component {
 
               <ul className="list-group list-group-flush">
                 {!(this.state.links === undefined || this.state.links.length === 0) ? this.state.links.map(item => (
-                  <ListItem url={item.url} title={item.title} icon={item.icon} deleteItem={this.onDeleteLink}/>
-                )) : <li>List is empty</li>}
+                  <ListItem
+                    url={item.url}
+                    title={item.title}
+                    icon={item.icon}
+                    deleteItem={this.onDeleteLink}
+                    clickLink={this.onLinkClicked}
+                  />
+                )) : <Alert />}
               </ul>
             </div>
           </div>
