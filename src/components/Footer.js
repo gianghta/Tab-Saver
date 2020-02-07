@@ -13,11 +13,6 @@ const Footer = () => {
         </div>
 
         </footer>
-        // <footer id="sticky-footer" className="footer py-4">
-        //     <div className="container text-center">
-        //     <small>Copyright &copy; Giang Ta 2020</small>
-        //     </div>
-        // </footer>
     );
 };
 

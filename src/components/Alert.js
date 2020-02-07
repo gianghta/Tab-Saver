@@ -1,12 +1,13 @@
 import React from 'react';
 
-const Alert = () => {
-    return (
-        <div class="mx-4 alert alert-danger" role="alert">
-            <h4 class="alert-heading">EMPTY!</h4>
-            <p>List is currently empty</p>
-        </div>
-    );
+import { EmptyAlert, NoFoundAlert } from './alert-type';
+
+const Alert = ({ flag }) => {
+    if (flag) {
+        return <EmptyAlert />
+    } else {
+        return <NoFoundAlert />
+    }
 }
 
 export default Alert;

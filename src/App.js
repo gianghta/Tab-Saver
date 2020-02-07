@@ -13,18 +13,23 @@ class App extends Component {
     super(props);
 
     this.state = {
+      searchVal: '',
       links: []
     };
   }
 
   componentDidMount() {
     chrome.storage.sync.get(['linksList'], result => {
-      console.log(result.linksList);
 
       if ('linksList' in result) {
         this.setState({ links: result.linksList });
       }
     })
+  }
+
+  onSearchInputChange = e => {
+    this.setState({ searchVal: e.target.value });
+    console.log(this.state.searchVal);
   }
 
   setLinksList = (list) => {
@@ -52,8 +57,6 @@ class App extends Component {
         });
 
         this.setLinksList(this.state.links);
-
-        console.log('Successfully add link');
       } else {
         alert('Link is already in the list');
       }
@@ -73,6 +76,23 @@ class App extends Component {
   }
 
   render() {
+    let filteredList = [];
+    let emptyFlag = false;
+
+    // Set flag to check if links in storage is empty
+    if (this.state.links === undefined || this.state.links.length === 0) {
+      emptyFlag = true;
+    }
+
+    // Filter list based on search value
+    if (this.state.searchVal !== '') {
+      filteredList = this.state.links.filter(link => {
+        return link.title.toLowerCase().includes(this.state.searchVal.toLowerCase());
+      });
+    } else {
+      filteredList = this.state.links;
+    }
+    
     return (
       <div>
         <main role="main" className="container">
@@ -80,10 +100,10 @@ class App extends Component {
             <div className="col-12">
               <h3 className="m-2">Tab Saver</h3>
               <AddBtn addItem={this.onAddLinkToUI}/>
-              <SearchBar />
+              <SearchBar value={this.state.searchVal} onChangeValue={this.onSearchInputChange} />
 
               <ul className="list-group list-group-flush">
-                {!(this.state.links === undefined || this.state.links.length === 0) ? this.state.links.map(item => (
+                {!(filteredList === undefined || filteredList.length === 0) ? filteredList.map(item => (
                   <ListItem
                     url={item.url}
                     title={item.title}
@@ -91,7 +111,7 @@ class App extends Component {
                     deleteItem={this.onDeleteLink}
                     clickLink={this.onLinkClicked}
                   />
-                )) : <Alert />}
+                )) : <Alert flag={emptyFlag}/>}
               </ul>
             </div>
           </div>
