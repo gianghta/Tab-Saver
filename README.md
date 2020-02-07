@@ -1,3 +1,5 @@
+# Tab Saver
+
 <p align="center">
 <img src="./logo-readme.png" width="200px" height="auto"/>
 </p>
