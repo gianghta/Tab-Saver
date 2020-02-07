@@ -16,8 +16,12 @@ A google chrome extension that allows user to save interesting tabs to read late
 * Run ```npm install```
 * Run ```npm run build```
 
-## Tech Stack
+## Stack
 
 * [React](https://reactjs.org/)
 * [Bootstrap4](https://getbootstrap.com/)
 * [Extension Logo is made by Flaticon](https://www.flaticon.com/)
+
+## License
+
+Licensed under the [MIT](https://opensource.org/licenses/mit-license.php) license.
