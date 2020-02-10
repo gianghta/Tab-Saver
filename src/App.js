@@ -115,7 +115,7 @@ class App extends Component {
               </ul>
             </div>
           </div>
-          <Footer />
+          <Footer clickLink={this.onLinkClicked}/>
         </main>
       </div>
     );
