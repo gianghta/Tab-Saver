@@ -50,7 +50,7 @@ class App extends Component {
       }
 
       if (!this.state.links.some(currLink => currLink.title === link.title)) {
-        const newLinks = [...this.state.links, link];
+        const newLinks = [link, ...this.state.links];
 
         this.setState({
           links: newLinks,

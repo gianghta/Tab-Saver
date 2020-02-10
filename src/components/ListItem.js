@@ -22,7 +22,7 @@ const ListItem = ({ url, title, icon, deleteItem, clickLink }) => {
         >
             <img
                 className="icon"
-                src={ (icon === null || icon === "") ? Icon : icon }
+                src={ (icon === null || icon === "" || icon === undefined) ? Icon : icon }
                 alt="website icon"
                 onClick={handleChildClick}
             />
